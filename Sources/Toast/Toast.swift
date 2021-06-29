@@ -249,10 +249,10 @@ extension _Indicator {
 
 extension View {
     // MARK: Toast Message
-    public func makeToast(_ message: String) {
+    public func makeToast(_ message: String, style: Style = DefaultStyle.shared) {
         let toast = ToastView(message: message)
         self.addSubview(toast)
-        hideAnimation(view: toast, style: DefaultStyle.shared)
+        hideAnimation(view: toast, style: style)
     }
 
     // MARK: Indicator
