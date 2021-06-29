@@ -110,9 +110,13 @@ class ToastView: View {
     private let message: String
     private let labelSize: CGSize
     private let style: Style
-    init(message: String) {
+    convenience init(message: String) {
+        self.init(message: message, style: DefaultStyle.shared)
+    }
+    
+    init(message: String, style: Style = DefaultStyle()) {
         self.message = message
-        self.style = DefaultStyle()
+        self.style = style
         self.labelSize = message.size(with: style.fontSize)
         let size = CGSize(
             width: labelSize.width + style.horizontalMargin*2,
@@ -124,6 +128,7 @@ class ToastView: View {
             wantsLayer = true
         #endif
     }
+    
     required init?(coder aDecoder: NSCoder) { fatalError() }
 
     #if os(iOS) || os(tvOS)
@@ -250,7 +255,7 @@ extension _Indicator {
 extension View {
     // MARK: Toast Message
     public func makeToast(_ message: String, style: Style = DefaultStyle.shared) {
-        let toast = ToastView(message: message)
+        let toast = ToastView(message: message, style: style)
         self.addSubview(toast)
         hideAnimation(view: toast, style: style)
     }
